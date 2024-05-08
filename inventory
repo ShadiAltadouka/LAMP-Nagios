@@ -1,0 +1,5 @@
+[webservers]
+ec2-13-58-97-54.us-east-2.compute.amazonaws.com
+ec2-18-118-153-1.us-east-2.compute.amazonaws.com
+ec2-3-17-206-25.us-east-2.compute.amazonaws.com ansible_user=ubuntu
+ec2-3-145-208-46.us-east-2.compute.amazonaws.com ansible_user=ubuntu
