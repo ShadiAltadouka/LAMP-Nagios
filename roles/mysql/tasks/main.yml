@@ -1,0 +1,73 @@
+---
+# This playbook is to perform MySQL installations.
+
+# - name: remove
+#   command: rm -rf  /etc/yum.repos.d/\[\'mysql-server\'\,\ \'MySQL-python\'\].repo
+# - name: yum-complete-transaction
+#   command: yum-complete-transaction
+#   become: yes
+
+- name: Install MySQL server/python
+  yum: 
+    name: "{{ mysql }}"
+    state: installed
+
+- name: MySQL community repo
+  yum_repository:
+    name: mysql80-community
+    description: MySQL 8.0 Community Server
+    baseurl: https://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch/
+    gpgkey: https://repo.mysql.com/RPM-GPG-KEY-mysql
+    enabled: 1
+    gpgcheck: 1
+
+- name: Start & Enable MySQL Server to start on boot
+  service: 
+    name: mysqld 
+    state: started 
+    enabled: yes
+
+- shell: grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}';
+  register: result
+-  set_fact:
+    mysql_root_pw: "{{ result.stdout }}"
+
+- stat: 
+    path: /root/.my.cnf
+  register: sym
+- set_fact: 
+    mysql_root_pw: "{{ masterpassword }}"
+    when: sym.stat.exists == True
+
+- name: install .my.cnf with credentials
+  template: 
+    src: my.cnf.j2 
+    dest: /root/.my.cnf
+    mode: 0400
+  tags: my_cnf
+
+# - name: Set the root password for MySQL Database
+#   command: mysql -u root --connect-expired-password --execute="SET PASSWORD = PASSWORD('{{ masterpassword }}');"
+    
+# -  set_fact:
+#     mysql_root_pw: "{{ masterpassword }}"
+
+- name: install .my.cnf with credentials
+  template: 
+    src: my.cnf.j2 
+    dest: /root/.my.cnf
+    mode: 0400
+  tags: my_cnf
+
+# - name: Create the database for website
+#   mysql_db: 
+#     name: "{{ dbname }}"
+#     state: present
+
+# - name: Create the Application user for the database
+#   mysql_user: 
+#     name: "{{ dbuser }}"
+#     password: "{{ upassword }}"
+#     priv: '*.*:ALL' 
+#     host: '%' 
+#     state: present

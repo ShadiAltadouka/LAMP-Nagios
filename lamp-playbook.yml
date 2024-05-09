@@ -1,0 +1,7 @@
+---
+- name: Install LAMP
+  hosts: webservers
+  become: yes
+  roles:
+  - apache2-httpd
+  - mysql

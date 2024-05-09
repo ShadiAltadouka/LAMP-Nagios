@@ -1,0 +1,10 @@
+- name: Enable HTTP
+  service:
+    name: "{{ http }}"
+    state: started
+    enabled: yes
+
+- name: Restart HTTP
+  service:
+    name: "{{ http }}"
+    state: restarted

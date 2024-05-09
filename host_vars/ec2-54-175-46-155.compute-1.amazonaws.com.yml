@@ -1,0 +1,32 @@
+http: httpd
+# user: ec2-user
+# mysql:
+# - mysql-server
+# - mysql-client
+# - python3-pymysql
+# - libmysqlclient-dev
+# service_name: mysql
+# db_name: shadi-db
+# db_user: shadi
+# mysql_root_db_pass: Sa@060695
+
+ansible_default_ipv4.address: 54.175.46.155
+
+package:
+- httpd
+- php
+- php-mysql
+mysql:
+- mysql-server 
+- MySQL-python 
+repo:
+# - "http://repo.mysql.com/mysql57-community-release-el7-10.noarch.rpm"
+- "https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm"
+
+dbname: shadi-db1
+
+dbuser: shadi
+upassword: Sa@060695
+
+masterpassword: NszmH9i1k-Hs
+mysql_user_pw: NszmH9i1k-Hs

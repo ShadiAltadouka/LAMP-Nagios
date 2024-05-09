@@ -1,0 +1,20 @@
+---
+# Playbook for Web Server
+
+- name: Install httpd and php
+  yum:
+    name: "{{ package }}"
+    state: installed
+
+- name: Install web role specific dependencies
+  yum:
+    name: git
+    state: installed
+
+- name: Enable HTTP
+  service:
+  notify:
+  - Enable HTTP
+  - Restart HTTP
+
+- include: copy_code.yml

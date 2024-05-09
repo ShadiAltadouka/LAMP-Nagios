@@ -1,0 +1,15 @@
+# http: apache2
+# user: ubuntu
+# mysql:
+# - mysql-server
+# - mysql-client
+# - python3-pymysql
+# - libmysqlclient-dev
+# service_name: mysql
+# db_name: shadi-db
+# db_user: shadi
+# db_user_password: Sa@060695
+# mysql_root_password: Sa@060695
+# mysql_root_db_pass: Sa@060695
+# db1_hosts: ec2-100-27-232-140.compute-1.amazonaws.com
+
